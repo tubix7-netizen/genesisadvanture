@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#888}canvas{display:block}</style></head><body>
+<canvas id="c" width="300" height="420" style="position:absolute;left:-9999px"></canvas><canvas id="out"></canvas>
+<script src="js/core.js"></script><script src="js/models.js"></script><script src="js/motion.js"></script><script src="js/world.js"></script>
+<script>
+const { R, Rig, HB, HBK, humanoid, animHuman, m4, m4trs, envAt } = G;
+const c = document.getElementById('c'); R.init(c); if (R.setShadow) R.setShadow(1024);
+G.FX.init && G.FX.init();
+window.show = function (looks, opt) {
+  opt = opt || {}; const views = opt.views || [0, 0.7, 1.5708, 3.1416]; const W = opt.w || 300, H = opt.h || 420;
+  c.width = W; c.height = H; const out = document.getElementById('out'); const RW = !!opt.row; out.width = RW ? W * looks.length : W * views.length; out.height = RW ? H * views.length : H * looks.length; const x2 = out.getContext('2d');
+  looks.forEach((lk, li) => {
+    const t0 = performance.now(); const gb = humanoid(lk, opt.lod); const ms = performance.now() - t0; const mesh = R.meshIdx(gb);
+    window.__stats = (window.__stats || []).concat([{ verts: gb.count, uniq: mesh.uniq, ms: Math.round(ms) }]);
+    const rig = new Rig(lk.kid ? HBK : HB); const st = Object.assign({ speed: 0, phase: 0, idle: 1, face: 0 }, opt.st || {}); const ph0 = st.phase; for (let i = 0; i <= 90; i++) { st.phase = ph0 - (90 - i) / 60 * G.stepRate(st.speed || 0); animHuman(rig, st, (opt.t || 0) + i / 60); } rig.update(m4trs(m4(), 0, 0, 0, 0));
+    views.forEach((yaw, vi) => {
+      const d = opt.dist || 3.0, ty = opt.ty || 0.95;
+      const env = envAt(opt.hour || 11);
+      const S = { cam: [Math.sin(yaw) * d, ty + (opt.cy || 0.25), Math.cos(yaw) * d], target: [0, ty, 0], fov: opt.fov || 0.7, env, time: 0, focus: [0, 0, 0], shadowOn: false,
+        terrain: [], statics: [], insts: [], dyn: [], skinned: [{ mesh, bones: rig.bones, outline: opt.outline !== false }], grass: { on: false }, water: null, flats: [], pts: { n: 0 } };
+      R.render(S, W, H); if (RW) x2.drawImage(c, li * W, vi * H); else x2.drawImage(c, vi * W, li * H);
+    });
+  });
+  return window.__stats;
+};
+</script></body></html>

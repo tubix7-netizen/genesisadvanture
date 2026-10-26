@@ -1,0 +1,4 @@
+[{ skin: 0xe2ab7c, top: 0x8e3c2c, trim: 0x2e4a78, trim2: 0xe8dcc0, under: 0xe4d6b8, hair: 0x4a2a16, hairStyle: 'tied', sash: 0x2e4a78, belt: 0x5a3a24 },
+{ skin: 0xd08a5a, top: 0x7a4a2a, bottom: 0x6a4024, trim: 0x3a2214, hair: 0xa8441e, hairStyle: 'wild', beard: 'short', beardCol: 0xa8441e, sleeveless: true, goatskin: true, belt: 0x4a3022, boots: 0x5a3a24, wraps: 0x4a3426, bag: 0x6a4428, eye: 0x5a3a1e, browAng: 0.6 },
+{ skin: 0xeab88e, top: 0xe8dcc0, long: true, trim: 0x3e8a66, trim2: 0xc8604a, under: 0xe8dcc0, hair: 0x2a1810, hairStyle: 'long', headwear: 'veil', clothCol: 0x6aa07a, clothStripe: 0xe8dcc0, headband: 0xd9a73a, sash: 0xc8604a, eye: 0x6a4626, browAng: 0.1, smile: 0.4, tilt: 0.0017 },
+{ skin: 0xc8905e, top: 0x7a8048, long: true, trim: 0x8a5a2a, hair: 0x1a1410, hairStyle: 'long', clothCol: 0x8a5a3a, clothStripe: 0xe0c070, belt: 0x6a3a22, browAng: 0.1, fem: true }]
